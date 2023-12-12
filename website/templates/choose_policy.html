@@ -1,0 +1,89 @@
+<!-- choose_policy.html -->
+
+{% extends "base.html" %}
+{% block title %}Choose Policy{% endblock %}
+
+{% block content %}
+  <div class="container bg-light">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card mt-5">
+          <div class="card-header">
+            <h3 class="text-center">Choose Your Policy</h3>
+          </div>
+          <div class="card-body">
+            <form method="POST" class="text-center">
+              <div class="form-group">
+                <label for="chosen_policy">Select Policy:</label>
+                <select id="chosen_policy" name="chosen_policy" class="form-control" onchange="showPolicyInfo()">
+                  {% for policy in policies %}
+                    <option value="{{ policy['id'] }}" data-description="{{ policy['description'] }}">{{ policy['title'] }} - {{ policy['insurance_type'] }} - ${{ policy['price'] }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+
+              <button type="submit" class="btn btn-info">Choose Policy</button>
+            </form>
+
+            
+
+          </div>
+        </div>
+      </div>
+    </div>
+     <!-- Display chosen policy description -->
+     <div id="policy_description" class="mt-3 text-center h2"></div>
+
+     <!-- Static information for each type of insurance -->
+     <div id="static_info" class="p-5"></div>
+  </div>
+
+  <script>
+    function showPolicyInfo() {
+      var selectedPolicyId = document.getElementById("chosen_policy").value;
+      var staticInfo = document.getElementById("static_info");
+
+      var selectedOption = document.querySelector("#chosen_policy option[value='" + selectedPolicyId + "']");
+      
+      // Display static information based on the selected policy
+      staticInfo.innerHTML = getStaticInfo(selectedPolicyId);
+    }
+
+    function getStaticInfo(policyId) {
+      // Define static information for each policy type
+      var staticInfoMap = {
+        '1': {
+          title: '<h2 class="text-center">Home Insurance</h2>',
+          description: '<h4>Coverage Types:</h4>' + 
+                       '<p>Dwelling Coverage: Protects the structure of your home, including the walls, roof, floors, and built-in appliances, in the event of covered perils such as fire or vandalism.</p>' +
+                       '<p>Personal Property Coverage: Covers your personal belongings, such as furniture, electronics, clothing, and other items, against covered perils, both inside and outside your home.</p>' +
+                       '<h4>Exclusions:</h4>' +
+                       '<p>Flood Insurance: Typically not included in standard home insurance. Consider a separate flood insurance policy for protection against flooding.</p>' + 
+                       '<p>Earthquake Insurance: Similar to flood insurance, earthquake coverage is usually a separate policy.</p>'
+        },
+        '2': {
+          title: '<h2 class="text-center">Car Insurance</h2>',
+          description: '<h4>Coverage Types:</h4>' + 
+                       '<p>Liability Coverage: Protects you in case you\'re responsible for an accident and may cover property damage and bodily injury.</p>' +
+                       '<p>Collision Coverage: Pays for damage to your car when your car hits, or is hit by, another vehicle or other object.</p>' +
+                       '<h4>Additional Coverages:</h4>' +
+                       '<p>Uninsured/Underinsured Motorist Coverage: Protects you if you\'re in an accident with someone who doesn\'t have insurance or enough insurance.</p>' + 
+                       '<p>Roadside Assistance: Provides services like towing, tire changes, and locksmith services.</p>'
+        },
+        '3': {
+          title: '<h2 class="text-center">Health Insurance</h2>',
+          description: '<h4>Medical Coverage:</h4>' +
+                       '<p>Hospitalization: Covers expenses related to inpatient care, including room charges, surgery, and nursing care.</p>' +
+                       '<p>Emergency Room Visits: Coverage for emergency medical care.</p>' +
+                       '<h4>Network Types:</h4>' +
+                       '<p>Health Maintenance Organization (HMO): Requires members to choose a primary care physician and get referrals for specialists.</p>' +
+                       '<p>Preferred Provider Organization (PPO): Offers a network of preferred providers, but allows members to see out-of-network providers at a higher cost.</p>'
+        }
+        
+      };
+
+      // Retrieve and return the static info based on the selected policy ID
+      return staticInfoMap[policyId] ? `<h3>${staticInfoMap[policyId].title}</h3>${staticInfoMap[policyId].description}` : '';
+    }
+  </script>
+{% endblock %}

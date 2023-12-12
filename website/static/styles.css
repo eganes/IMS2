@@ -1,0 +1,33 @@
+/* static/styles.css */
+
+body {
+    background-color: #f0f0f0;
+    font-family: 'Lato', sans-serif;
+}
+
+.navbar {
+    background-color: #022e46;
+    font-family: 'Montserrat', sans-serif;
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Lato', sans-serif;
+    font-weight: bold;
+}
+
+.btn-warning {
+    background-color: rgb(215, 110, 5);
+}
+
+.bg-blue {
+    background-color: #03395b;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: #f0f0f0;
+}
+
+.text-gray {
+    color: rgb(220, 220, 220);
+}
+/* Add more styles as needed */
