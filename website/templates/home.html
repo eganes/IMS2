@@ -4,12 +4,13 @@
 
 <div class="container mt-4">
   <h2 class="display-4 text-center mb-4">Welcome, {{ user.first_name }}!</h2>
+  <hr>
 
   <div class="row">
     <!-- Chosen Policies column -->
     <div class="col-md-8">
+      <h3 class="mt-5 mb-2">Chosen Policies:</h3>
       {% if user.chosen_policies %}
-        <h3 class="mb-3">Chosen Policies:</h3>
         {% for chosen_policy in user.chosen_policies %}
           <div class="card mb-3">
             <div class="card-body">
@@ -24,13 +25,15 @@
           </div>
         {% endfor %}
       {% else %}
-        <p class="lead">You haven't chosen any policies yet. <a href="{{ url_for('views.choose_policy') }}" class="btn btn-primary">Choose a Policy</a></p>
+      <div class="mt-2">
+        <p class="lead">You haven't chosen any policies yet. <a href="{{ url_for('views.choose_policy') }}" class="btn btn-info">Choose a Policy</a></p>
+        </div>
       {% endif %}
     </div>
 
     <!-- Your Inquiries column -->
     <div class="col-md-4">
-      <h3 class="mb-3">Your Inquiries:</h3>
+      <h3 class="mt-5 mb-2">Your Inquiries:</h3>
       {% if user.contacts %}
         {% for contact in user.contacts %}
           <div class="card mb-3">
@@ -42,7 +45,9 @@
           </div>
         {% endfor %}
       {% else %}
-        <p class="lead">You don't have any inquiries yet. <a href="{{ url_for('views.contact_us') }}" class="btn btn-primary">Create a New Inquiry</a></p>
+        <div class="mt-2">
+          <p class="lead">You don't have any inquiries yet. <a href="{{ url_for('views.contact_us') }}" class="btn btn-info">Create a New Inquiry</a></p>
+        </div>
       {% endif %}
     </div>
   </div>
